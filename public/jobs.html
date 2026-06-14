@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карьера в ApexTech Solutions — Поиск вакансий</title>
+    <style>
+        :root { --primary: #0f172a; --accent: #2563eb; --text: #334155; --bg: #f8fafc; }
+        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+        nav { background: var(--primary); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        nav .logo { font-weight: bold; font-size: 1.4rem; color: #fff; text-decoration: none; }
+        .container { max-width: 800px; margin: 3rem auto; padding: 0 1rem; }
+        .search-box { background: white; padding: 2rem; border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); text-align: center; }
+        input[type="text"] { width: 70%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 1rem; }
+        button { padding: 10px 20px; background: var(--accent); color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 1rem; }
+        .results { margin-top: 2rem; padding: 1.5rem; background: white; border-radius: 8px; border: 1px solid #e2e8f0; text-align: left; }
+        h2 { color: var(--primary); }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/" class="logo">ApexTech Solutions — Карьера</a>
+        <a href="/" style="color: #cbd5e1; text-decoration: none;">На главную</a>
+    </nav>
+
+    <div class="container">
+        <div class="search-box">
+            <h2>Поиск открытых вакансий в ИТ-департаменте</h2>
+            <p>Введите ключевые слова для поиска (например: Frontend, DevOps, QA)</p>
+            
+            <form action="/jobs" method="GET">
+                <input type="text" name="search" id="jobInput" placeholder="Поиск по должности..." required>
+                <button type="submit">Искать</button>
+            </form>
+        </div>
+
+        <div id="resultsBlock" class="results" style="display: none;">
+            <h3 id="searchStatus"></h3>
+            <p style="color: #64748b;">К сожалению, в данный момент активных вакансий по этому направлению не найдено. Оставьте резюме на нашей почте.</p>
+        </div>
+    </div>
+
+<script>
+    async function executeReflectedCheck() {
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchParam = urlParams.get('search');
+
+        if (searchParam) {
+            const secRes = await fetch('/api/security-status');
+            const secData = await secRes.json();
+
+            let displayQuery = searchParam;
+
+            if (secData.isSecureMode) {
+                displayQuery = searchParam
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;");
+            }
+
+            document.getElementById('resultsBlock').style.display = 'block';
+            document.getElementById('jobInput').value = searchParam;
+
+            document.getElementById('searchStatus').innerHTML = `Результаты поиска по запросу: "${displayQuery}"`;
+        }
+    }
+
+    executeReflectedCheck();
+</script>
+</body>
+</html>

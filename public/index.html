@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApexTech Solutions — Системная интеграция и ИТ-консалтинг</title>
+    <style>
+        :root { --primary: #0f172a; --accent: #2563eb; --text: #334155; --bg: #f8fafc; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 0; background: var(--bg); color: var(--text); line-height: 1.6; }
+        
+        /* Навигация и Поиск */
+        nav { background: var(--primary); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        nav .logo { font-weight: bold; font-size: 1.4rem; color: #fff; text-decoration: none; }
+        nav .links a { color: #cbd5e1; text-decoration: none; margin-left: 1.5rem; font-size: 0.95rem; }
+        .search-form { display: flex; background: transparent; border: none; padding: 0; gap: 5px; }
+        .search-input { padding: 6px 12px; border-radius: 4px; border: 1px solid #475569; background: #1e293b; color: white; font-size: 0.9rem; }
+        .search-input::placeholder { color: #94a3b8; }
+        .search-btn { padding: 6px 12px; background: var(--accent); color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        
+        /* Главный баннер */
+        .hero { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: white; padding: 4rem 2rem; text-align: center; }
+        .hero h1 { margin: 0 0 1rem 0; font-size: 2.3rem; }
+        .hero p { color: #94a3b8; font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+        /* Контентные блоки */
+        .container { max-width: 1000px; margin: 2.5rem auto; padding: 0 1rem; }
+        h2 { text-align: center; color: var(--primary); margin-bottom: 2rem; }
+        
+        /* Сетка услуг */
+        .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 4rem; }
+        .service-card { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+        .service-card h3 { margin-top: 0; color: var(--accent); }
+
+        /* Секция поиска */
+        .search-results-box { background: #fff; padding: 1.5rem; border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+
+        /* Отзывы */
+        .reviews-section { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+        .reviews-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-bottom: 2rem; }
+        .review-item { background: #f1f5f9; padding: 1.2rem; border-radius: 6px; border-left: 4px solid var(--accent); }
+        .review-author { font-weight: bold; color: var(--primary); font-size: 0.95rem; }
+        .review-company { color: #64748b; font-size: 0.85rem; margin-bottom: 0.5rem; }
+
+        /* Форма */
+        form.review-form { display: grid; gap: 1rem; background: #f8fafc; padding: 1.5rem; border-radius: 6px; border: 1px solid #e2e8f0; }
+        .form-group { display: flex; flex-direction: column; }
+        label { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem; }
+        form.review-form input, form.review-form textarea { padding: 0.6rem; border: 1px solid #cbd5e1; border-radius: 4px; font-family: inherit; }
+        .btn-submit { background: var(--accent); color: white; border: none; padding: 0.75rem; border-radius: 4px; font-weight: bold; cursor: pointer; }
+
+        /* Подвал и Панель Переключения защиты */
+        footer { background: #1e293b; color: #94a3b8; text-align: center; padding: 2rem; margin-top: 5rem; font-size: 0.9rem; }
+        .demo-panel { background: #334155; color: white; padding: 10px 15px; max-width: 420px; margin: 1rem auto 0 auto; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #475569; }
+        .badge { padding: 3px 8px; border-radius: 3px; font-weight: bold; font-size: 0.8rem; }
+        .badge.secure { background: #10b981; color: white; }
+        .badge.vuln { background: #ef4444; color: white; }
+        .btn-panel { background: #475569; color: white; font-size: 0.8rem; padding: 5px 12px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/" class="logo">ApexTech Solutions</a>
+        
+        <form action="/" method="GET" class="search-form">
+            <input type="text" name="q" id="searchInput" class="search-input" placeholder="Поиск по сайту..." required>
+            <button type="submit" class="search-btn">Найти</button>
+        </form>
+
+        <div class="links">
+            <a href="#services">Услуги</a>
+            <a href="#reviews">Отзывы</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <h1>Интеллектуальные ИТ-решения для бизнеса</h1>
+        <p>Проектируем, разрабатываем и защищаем цифровую инфраструктуру вашей компании под ключ.</p>
+    </div>
+
+    <div class="container">
+        
+        <section id="searchSection" style="display: none; margin-bottom: 3rem;">
+            <div class="search-results-box">
+                <h3 id="searchTitle" style="color: var(--primary); margin-top: 0;"></h3>
+                <p style="color: #64748b; margin-bottom: 0;">По вашему запросу ничего не найдено на сервере. Попробуйте другие ключевые слова.</p>
+            </div>
+        </section>
+
+        <section id="services">
+            <h2>Наши направления</h2>
+            <div class="services">
+                <div class="service-card">
+                    <h3>Облачная интеграция</h3>
+                    <p>Перенос корпоративных систем в отказоустойчивые облачные кластеры без остановки бизнес-процессов.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Разработка ПО</h3>
+                    <p>Создание кастомных ERP, CRM и высоконагруженных веб-платформ под требования заказчика.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Информационная безопасность</h3>
+                    <p>Проектирование систем защиты, проведение аудитов и защита приложений от киберугроз.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="reviews" class="reviews-section">
+            <h2>Отзывы наших партнеров</h2>
+            
+            <div id="reviewsContainer" class="reviews-grid"></div>
+
+            <form id="reviewForm" class="review-form" onsubmit="sendReview(event)">
+                <h3>Оставить отзыв о сотрудничестве</h3>
+                <div class="form-group">
+                    <label for="authorName">Ваше имя *</label>
+                    <input type="text" id="authorName" required placeholder="Константин">
+                </div>
+                <div class="form-group">
+                    <label for="authorCompany">Компания</label>
+                    <input type="text" id="authorCompany" placeholder="АО 'ТехноЭкспорт'">
+                </div>
+                <div class="form-group">
+                    <label for="reviewText">Текст отзыва *</label>
+                    <textarea id="reviewText" required placeholder="Напишите ваше мнение..."></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Опубликовать отзыв</button>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 ApexTech Solutions. Все права защищены.</p>
+        
+        <div class="demo-panel">
+            <div>Фильтрация (XSS Mitigation): <span id="secBadge" class="badge vuln">Выкл</span></div>
+            <button class="btn-panel" onclick="toggleSecurity()">Переключить режим</button>
+        </div>
+    </footer>
+
+<script>
+    // Имитируем, будто пользователь залогинен и у него в браузере есть сессионный токен
+    if (!document.cookie.includes("session_token")) {
+    document.cookie = "session_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.user_admin_session_777; max-age=3600; path=/";
+    document.cookie = "user_role=administrator; max-age=3600; path=/";
+    }
+
+    async function loadReviews() {
+        const res = await fetch('/api/reviews');
+        const reviews = await res.json();
+        const container = document.getElementById('reviewsContainer');
+        container.innerHTML = '';
+        
+        reviews.forEach(r => {
+            const div = document.createElement('div');
+            div.className = 'review-item';
+            div.innerHTML = `
+                <div class="review-author">${r.name}</div>
+                <div class="review-company">${r.company}</div>
+                <div class="review-text">${r.text}</div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    async function sendReview(e) {
+        e.preventDefault();
+        const name = document.getElementById('authorName').value;
+        const company = document.getElementById('authorCompany').value;
+        const text = document.getElementById('reviewText').value;
+
+        await fetch('/api/reviews', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, company, text })
+        });
+
+        document.getElementById('reviewForm').reset();
+        await loadReviews();
+    }
+
+    // --- Логика работы с Reflected XSS (Поиск) ---
+    async function checkSearchQuery() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const query = urlParams.get('q');
+        
+        if (query) {
+            // Отправляем запрос на сервер, сервер возвращает его обратно (отражает)
+            const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+            const data = await res.json();
+            
+            document.getElementById('searchSection').style.display = 'block';
+            
+            // Внедрение уязвимости: рендерим отраженный сервером ответ без санитизации
+            document.getElementById('searchTitle').innerHTML = `Результаты поиска по запросу: "${data.query}"`;
+            document.getElementById('searchInput').value = query;
+        }
+    }
+
+    // --- Управление конфигурацией стенда ---
+    async function toggleSecurity() {
+        const res = await fetch('/api/toggle-security', { method: 'POST' });
+        const data = await res.json();
+        updateUI(data.isSecureMode);
+        await loadReviews();
+        
+        // Перезапрашиваем поиск, чтобы обновить состояние, если мы находимся на странице поиска
+        const urlParams = new URLSearchParams(window.location.search);
+        if(urlParams.get('q')) {
+            await checkSearchQuery();
+        }
+    }
+
+    function updateUI(isSecure) {
+        const badge = document.getElementById('secBadge');
+        if (isSecure) {
+            badge.innerText = "Активна";
+            badge.className = "badge secure";
+        } else {
+            badge.innerText = "Выкл";
+            badge.className = "badge vuln";
+        }
+    }
+
+    // Первоначальный запуск
+    fetch('/api/security-status').then(res => res.json()).then(data => updateUI(data.isSecureMode));
+    loadReviews();
+    checkSearchQuery();
+</script>
+</body>
+</html>
